@@ -31,7 +31,7 @@ const temperatureFahrenheit = convertCelsiusToFahrenheitAndRound(currentWeatherD
 
     
 currentWeatherDiv.innerHTML = `<div class="card-panel grey darken-1">
-                                   <h2><strong>${currentWeatherData.name}</strong></h2>
+                                   <h2>${currentWeatherData.name}</h2>
                                    <h4>${formattedDate}</h4>
                                    <p><strong>Temperature:</strong> ${temperatureFahrenheit}°F</p>
                                    <p><strong>Humidity:</strong> ${currentWeatherData.main.humidity}%</p>
@@ -56,6 +56,7 @@ currentWeatherDiv.innerHTML = `<div class="card-panel grey darken-1">
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         return date.toLocaleDateString('en-US', options);
     }
+
     
  // Filter the forecast dataset for 3 PM entries
 forecastData.list.forEach(day => {
@@ -78,8 +79,8 @@ const temperatureFahrenheitForecast = convertCelsiusToFahrenheitAndRound(day.mai
 
     
     if (!uniqueDays[formattedDate]) {
-        const cardHtml = `<div class="card-panel text-align center grey darken-1">
-                              <p><strong>${formattedDate}</strong></p>
+        const cardHtml = `<div class="card-panel z-depth-4 text-align center grey darken-1">
+                              <p><strong>${formattedDate}</p></strong>
                               <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" />
                               <p>Temperature: ${temperatureFahrenheitForecast}°F</p>
                               <p>Humidity: ${day.main.humidity}%</p>
