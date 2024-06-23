@@ -19,69 +19,90 @@ searchForm.addEventListener('submit', async function(event) {
     const today = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = today.toLocaleDateString('en-US', options);
+
+ // Function to convert Celsius to Fahrenheit and round to one decimal point
+function convertCelsiusToFahrenheitAndRound(celsius) {
+    const fahrenheit = (celsius * 9/5) + 32;
+    return fahrenheit.toFixed(1);
+}
     
-    // Fetch 5-day forecast data
+// Display the temperature in Fahrenheit rounded to one decimal point
+const temperatureFahrenheit = convertCelsiusToFahrenheitAndRound(currentWeatherData.main.temp);
+
+    
+currentWeatherDiv.innerHTML = `<div class="card-panel grey darken-1">
+                                   <h2><strong>${currentWeatherData.name}</strong></h2>
+                                   <h4>${formattedDate}</h4>
+                                   <p><strong>Temperature:</strong> ${temperatureFahrenheit}°F</p>
+                                   <p><strong>Humidity:</strong> ${currentWeatherData.main.humidity}%</p>
+                                   <p><strong>Wind Speed:</strong> ${currentWeatherData.wind.speed} m/s</p>
+                                   <img src="https://openweathermap.org/img/wn/${currentWeatherData.weather[0].icon}@2x.png" />
+                                 </div>`;
+   
+                                 // Fetch 5-day forecast data
     const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`);
     const forecastData = await forecastResponse.json();
     console.log("Forecast Data: ", forecastData);
     
-    // Display current weather and forecast on the page
-    currentWeatherDiv.innerHTML = `<div class="card-panel teal">
-                                   <h2>${currentWeatherData.name}</h2>
-                                   <h4>${formattedDate}</h4>
-                                   <p>Temperature: ${currentWeatherData.main.temp}°C</p>
-                                   <p>Humidity: ${currentWeatherData.main.humidity}%</p>
-                                   <p>Wind Speed: ${currentWeatherData.wind.speed} m/s</p>
-                                   <img src="https://openweathermap.org/img/wn/${currentWeatherData.weather[0].icon}@2x.png" />
-                                   </div>`;
-
-                                   forecastDiv.innerHTML = ''; // Clear previous forecast data
-                                   const uniqueDays = {};
-                                   const fiveDays = [];
-                                   
-                                   // Function to get the formatted date
-                                   function getFormattedDate(dateString) {
-                                       const date = new Date(dateString);
-                                       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                                       return date.toLocaleDateString('en-US', options);
-                                   }
-                                   
-                                   // Filter the forecast dataset for 3 PM entries
-                                   forecastData.list.forEach(day => {
-                                       let timeStamp = day.dt_txt.split(' ');
-                                   
-                                       if (timeStamp[1] === '15:00:00') {
-                                           fiveDays.push(day);
-                                       }
-                                   });
-                                   
-                                   fiveDays.forEach(day => {
-                                       const formattedDate = getFormattedDate(day.dt_txt);
-                                   
-                                       if (!uniqueDays[formattedDate]) {
-                                           forecastDiv.innerHTML += `<div class="card-panel teal">
-                                                                       <p>${formattedDate}</p>
-                                                                       <p>Temperature: ${day.main.temp}°C</p>
-                                                                       <p>Humidity: ${day.main.humidity}%</p>
-                                                                       <p>Wind Speed: ${day.wind.speed} m/s</p>
-                                                                       <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" />
-                                                                     </div>`;
-                                           uniqueDays[formattedDate] = true;
-                                       }
-                                   });
-    // Save the weather information in local storage
-    const weatherInfo = {
-        city: currentWeatherData.name,
-        temperature: currentWeatherData.main.temp,
-        humidity: currentWeatherData.main.humidity,
-        windSpeed: currentWeatherData.wind.speed,
-        forecast: forecastData.list
-    };
-    localStorage.setItem('weatherInfo', JSON.stringify(weatherInfo));
-
-    // Display search history
-    searchHistoryDiv.innerHTML += `<div>${currentWeatherData.name}</div>`;
-
-    // Clear the input field after search
-    cityInput.value = '';
+    // Clear previous forecast data
+    forecastDiv.innerHTML = '';
+    
+    const uniqueDays = {};
+    const fiveDays = [];
+    
+    // Function to get the formatted date
+    function getFormattedDate(dateString) {
+        const date = new Date(dateString);
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    }
+    
+ // Filter the forecast dataset for 3 PM entries
+forecastData.list.forEach(day => {
+    let timeStamp = day.dt_txt.split(' ');
+    
+    if (timeStamp[1] === '15:00:00') {
+        fiveDays.push(day);
+    }
 });
+
+// Clear previous forecast data before adding new forecast
+const forecastContainer = document.getElementById('forecast-container');
+forecastContainer.innerHTML = '';
+
+fiveDays.forEach(day => {
+    const formattedDate = getFormattedDate(day.dt_txt);
+
+// Display the forecast temperature in Fahrenheit rounded to one decimal point
+const temperatureFahrenheitForecast = convertCelsiusToFahrenheitAndRound(day.main.temp);
+
+    
+    if (!uniqueDays[formattedDate]) {
+        const cardHtml = `<div class="card-panel text-align center grey darken-1">
+                              <p><strong>${formattedDate}</strong></p>
+                              <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" />
+                              <p>Temperature: ${temperatureFahrenheitForecast}°F</p>
+                              <p>Humidity: ${day.main.humidity}%</p>
+                              <p>Wind Speed: ${day.wind.speed} m/s</p>
+                          </div>`;
+        forecastContainer.innerHTML += cardHtml;
+        uniqueDays[formattedDate] = true;
+    }
+});
+
+// Save the weather information in local storage
+const weatherInfo = {
+    city: currentWeatherData.name,
+    temperature: currentWeatherData.main.temp,
+    humidity: currentWeatherData.main.humidity,
+    windSpeed: currentWeatherData.wind.speed,
+    forecast: forecastData.list
+};
+localStorage.setItem('weatherInfo', JSON.stringify(weatherInfo));
+
+// Display search history
+searchHistoryDiv.innerHTML += `<div  class="card-panel grey darken-1">${currentWeatherData.name}</div>`;
+
+// Clear the input field after search
+cityInput.value = '';
+})
