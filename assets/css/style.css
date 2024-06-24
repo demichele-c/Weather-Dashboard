@@ -13,15 +13,14 @@
 }
 /* stylying for the cards. */
 .card-panel {
-    flex: 0 0 154px; /* Adjust the width as needed */
-    margin: 10px;
+    flex: 0 0 195px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     color: white;
     font-family: "Cambo", serif;
     font-weight: 400;
-    
+    font-size: 14px;
 }
 
 #search-form {

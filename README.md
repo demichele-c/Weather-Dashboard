@@ -26,5 +26,6 @@ THEN I used a combination of Materialize and CSS to style my page and design lay
 ![Deployed Website](assets/Screenshot-2.png)
 
 ## Project URL
+https://demichele-c.github.io/Weather-Dashboard/
 
 
