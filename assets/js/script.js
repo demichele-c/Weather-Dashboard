@@ -1,3 +1,4 @@
+// define api key and other variables.
 const apiKey = '7c83f1fb12810c7022369a78b112fac3'; 
 const searchForm = document.getElementById('search-form');
 const cityInput = document.getElementById('city-input');
@@ -5,6 +6,7 @@ const currentWeatherDiv = document.getElementById('current-weather');
 const forecastDiv = document.getElementById('forecast');
 const searchHistoryDiv = document.getElementById('search-history');
 
+// preventDefault on submit button
 searchForm.addEventListener('submit', async function(event) {
     event.preventDefault();
     
@@ -29,7 +31,7 @@ function convertCelsiusToFahrenheitAndRound(celsius) {
 // Display the temperature in Fahrenheit rounded to one decimal point
 const temperatureFahrenheit = convertCelsiusToFahrenheitAndRound(currentWeatherData.main.temp);
 
-    
+// dynamically create card for current weather.    
 currentWeatherDiv.innerHTML = `<div class="card-panel grey darken-1">
                                    <h2>${currentWeatherData.name}</h2>
                                    <h4>${formattedDate}</h4>
