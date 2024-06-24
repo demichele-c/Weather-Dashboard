@@ -22,8 +22,8 @@ THEN I used a combination of Materialize and CSS to style my page and design lay
 ```
 ## Deployed Website Screenshot
 
-![Deployed Website](assets/Screenshot-1.png.png)
-![Deployed Website](assets/Screenshot-2.png.png)
+![Deployed Website](assets/Screenshot-1.png)
+![Deployed Website](assets/Screenshot-2.png)
 
 ## Project URL
 
