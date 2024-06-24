@@ -1,0 +1,52 @@
+/* added font family to root. */
+:root {
+    --font-family: "Abril Fatface", serif;
+  }
+/* added styling to container holding forecast cards. */
+  #forecast-container {
+    display: flex;
+    flex-wrap: wrap;
+    font-family: "Zen Kaku Gothic Antique", sans-serif;
+    font-weight: 400;
+    
+
+}
+/* stylying for the cards. */
+.card-panel {
+    flex: 0 0 154px; /* Adjust the width as needed */
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: white;
+    font-family: "Cambo", serif;
+    font-weight: 400;
+    
+}
+
+#search-form {
+    margin: 10px;
+    font-family: "Cambo", serif;
+}
+/* font for nav. */
+nav {
+    font-family: var(--font-family);
+}
+/* font for input box. */
+.input {
+    font-family: "Cambo", serif;
+    margin-bottom: 10px;
+}
+/* move heaading. */
+#brand-logo {
+    padding-left: 10px;
+}
+/* styling for submit button. */
+.btn-floating {
+    width: 170px;
+    height: 40px;
+    color: var(--md-sys-color-on-primary-container);
+    background-color: #a1a2a3;
+    color: white;
+    font-family: var(--font-family);
+}

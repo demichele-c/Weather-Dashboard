@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        const theme = localStorage.getItem('theme');
+        if (theme) document.documentElement.setAttribute('theme', theme);
+      </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cambo&family=Zen+Kaku+Gothic+Antique&display=swap" rel="stylesheet">
+
+    
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.0/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+ 
+
+</head>
+<body class=" font grey lighten-2">
+    <!-- nav bar. -->
+    <nav>
+        <div class="nav-wrapper black lighten-2">
+          <a href="#" id="brand-logo" class="brand-logo">Weather Dashboard</a>
+        </div>
+      </nav>
+   <div class="font" >
+      <div class="row">
+        <!-- search bar and city imput. -->
+            <div class="col s2 ">
+                <form id="search-form">
+                    <input type="text" class="input" id="city-input" placeholder="Enter city name">
+                    <button type="submit"  class="btn-floating waves-effect waves-light" class="btn">Search</button>
+                    </form>
+                    <div class="divider"></div>
+                    <!-- search-history -->
+                <div  id="search-history"></div>
+            </div>
+            <div class="col s10">
+           <!-- current forecast card. -->
+                <div class="row">
+                    <div  class="card-content white-text text-align center col s11" id="current-weather">
+    
+                    </div></div>
+                <div class="col s10">
+                    <!-- 5 day forecast cards. -->
+                <div class="row" id="forecast-container">
+                <div  class="card-content white-text text-align center col s2" id="forecast">
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.0/dist/js/materialize.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
